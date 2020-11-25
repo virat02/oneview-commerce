@@ -1,0 +1,1 @@
+export const GET_ALL_USERS_ERROR = 'GET_ALL_USERS_ERROR'

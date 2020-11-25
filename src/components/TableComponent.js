@@ -2,6 +2,11 @@ import React, { Component } from 'react';
 import Table from 'react-bootstrap/Table'
 
 export default class TableComponent extends Component {
+
+    componentDidMount() {
+        this.props.getUsers();
+    }
+
     render() {
         return (
             <div className="container-fluid">
@@ -16,24 +21,16 @@ export default class TableComponent extends Component {
                     </thead>
 
                     <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>@mdo</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>@fat</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>Larry</td>
-                        <td>Bird</td>
-                        <td>@twitter</td>
-                    </tr>
+                    {
+                        this.props.users.map(user =>
+                            <tr key={ user.id }>
+                                <td>{ user.name }</td>
+                                <td>{ user.email }</td>
+                                <td>{ user.address.city }</td>
+                                <td>{ user.company.name }</td>
+                            </tr>
+                        )
+                    }
                     </tbody>
                 </Table>
             </div>
