@@ -3,7 +3,7 @@ import TableComponent from "../components/TableComponent";
 import * as UserActions from "../actions/UserActions";
 
 const stateToPropertyMapper = state => ({
-    users: state.UserReducer.users
+    users: state.UserReducer.searched_users,
 });
 
 const dispatcherToPropsMapper = dispatch => ({

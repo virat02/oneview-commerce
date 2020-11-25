@@ -21,3 +21,13 @@ export const getUsers = async dispatch => {
         })
     }
 }
+
+export const searchUsers = (dispatch, search_keyword, all_users) => {
+    let searched_users = (search_keyword !== '') ? 
+        all_users.filter(user => (user.name.toLowerCase()).includes(search_keyword.toLowerCase())) : all_users;
+    
+    dispatch({
+        type: UserConstants.GET_ALL_SEARCHED_USERS,
+        searched_users: searched_users,
+    })
+}
