@@ -25,7 +25,9 @@ export default class TableComponent extends Component {
                     <tbody>
                     {
                         this.props.users.map(user =>
-                            <tr key={ user.id } onClick={() => this.props.getUserPosts(user.id, user.name)}>
+                            <tr key={ user.id } onClick={() => 
+                                this.props.getUserPosts(user.id, user.name)
+                            }>
                                 <td>{ user.name }</td>
                                 <td>{ user.email }</td>
                                 <td>{ user.address.city }</td>
