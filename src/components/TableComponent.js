@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Link } from "react-router-dom";
+
 import Table from 'react-bootstrap/Table'
 
 export default class TableComponent extends Component {
@@ -23,7 +25,7 @@ export default class TableComponent extends Component {
                     <tbody>
                     {
                         this.props.users.map(user =>
-                            <tr key={ user.id }>
+                            <tr key={ user.id } onClick={() => this.props.getUserPosts(user.id, user.name)}>
                                 <td>{ user.name }</td>
                                 <td>{ user.email }</td>
                                 <td>{ user.address.city }</td>

@@ -1,4 +1,5 @@
 import axios from 'axios'
+import history from '../History'
 
 import * as UserConstants from "../constants/UserConstants"
 import * as ErrorConstants from "../constants/ErrorConstants"
@@ -30,4 +31,24 @@ export const searchUsers = (dispatch, search_keyword, all_users) => {
         type: UserConstants.GET_ALL_SEARCHED_USERS,
         searched_users: searched_users,
     })
+}
+
+export const getUserPosts = async (dispatch, userId, user_name) => {
+    try {
+        const response = await axios.get(baseURL + "/posts", {userId: userId});
+
+        dispatch({
+            type: UserConstants.GET_USER_POSTS,
+            payload: response.data,
+            user_name: user_name,
+        });
+
+        history.push(`/user/${userId}/posts`);
+    }
+    catch(e) {
+        dispatch({
+            type: ErrorConstants.GET_USER_POSTS_ERROR,
+            message: "Couldn't get user posts. Please try again!"
+        })
+    }
 }

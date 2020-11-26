@@ -8,6 +8,7 @@ const stateToPropertyMapper = state => ({
 
 const dispatcherToPropsMapper = dispatch => ({
     getUsers: () => UserActions.getUsers(dispatch),
+    getUserPosts: (userId, user_name) => UserActions.getUserPosts(dispatch, userId, user_name),
 });
 
 const TableContainer = connect(stateToPropertyMapper, dispatcherToPropsMapper)(TableComponent);
