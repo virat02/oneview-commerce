@@ -4,6 +4,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { configure, shallow } from 'enzyme';
 
 import TableComponent from '../../components/TableComponent';
+import SearchComponent from '../../components/SearchComponent';
 
 configure({adapter: new Adapter()});
 
@@ -34,7 +35,6 @@ const mockData = [
 ];
 
 describe('<TableComponent>', () => {
-    let wrapper;
     let props;
     beforeEach(() => {
         props = {
@@ -45,6 +45,7 @@ describe('<TableComponent>', () => {
         };
     });
 
+    // TEST getUsers IS CALLED ON TABLE COMPONENT LOAD
     it('Renders a table', () => {
         props.getUsers = jest.fn();
         const wrapper = shallow(<TableComponent { ...props }/>);
@@ -55,5 +56,19 @@ describe('<TableComponent>', () => {
         instance.componentDidMount();
 
         expect(spy).toHaveBeenCalled();
+    });
+
+    // TEST searchUsers IS CALLED ON USER INPUT IN SEARCH BOX
+    it('Filters results in table', () => {
+        props.searchUsers = jest.fn();
+        const wrapper = shallow(<SearchComponent { ...props }/>);
+
+        const instance = wrapper.instance();
+        const spy = jest.spyOn(instance.props, 'searchUsers');
+
+        wrapper.find('#user-search').simulate('change', { 
+            target: { value: 'le' } 
+        });
+        expect(spy).toHaveBeenCalledTimes(1);
     });
 });
