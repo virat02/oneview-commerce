@@ -47,28 +47,64 @@ describe('<TableComponent>', () => {
 
     // TEST getUsers IS CALLED ON TABLE COMPONENT LOAD
     it('Renders a table', () => {
+        // SETUP MOCKS
         props.getUsers = jest.fn();
         const wrapper = shallow(<TableComponent { ...props }/>);
 
         const instance = wrapper.instance();
         const spy = jest.spyOn(instance.props, 'getUsers');
 
+        // WHEN
         instance.componentDidMount();
 
+        // THEN
         expect(spy).toHaveBeenCalled();
+    });
+
+    // TEST getUserPosts IS CALLED WHEN USER CLICKS ON A ROW (A USER)
+    it('Get user posts', () => {
+        // SETUP MOCKS
+        props.getUsers = jest.fn();
+        props.getUserPosts = jest.fn();
+        const wrapper = shallow(<TableComponent { ...props }/>);
+
+        const instance = wrapper.instance();
+        const spy = jest.spyOn(instance.props, 'getUserPosts');
+
+        // WHEN
+        wrapper.find('#user-row').simulate('click');
+
+        // THEN
+        expect(spy).toHaveBeenCalledTimes(1);
+    });
+});
+
+describe('<SearchComponent>', () => {
+    let props;
+    beforeEach(() => {
+        props = {
+            users: mockData,
+            searched_users: mockData,
+            user_posts: [],
+            user_name: null,
+        };
     });
 
     // TEST searchUsers IS CALLED ON USER INPUT IN SEARCH BOX
     it('Filters results in table', () => {
+        // SETUP MOCKS
         props.searchUsers = jest.fn();
         const wrapper = shallow(<SearchComponent { ...props }/>);
 
         const instance = wrapper.instance();
         const spy = jest.spyOn(instance.props, 'searchUsers');
 
+        // WHEN
         wrapper.find('#user-search').simulate('change', { 
             target: { value: 'le' } 
         });
+
+        // THEN
         expect(spy).toHaveBeenCalledTimes(1);
     });
 });
